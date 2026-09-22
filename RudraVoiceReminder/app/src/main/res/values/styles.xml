@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.RudraVoiceReminder" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">#070B17</item>
+        <item name="android:navigationBarColor">#070B17</item>
+    </style>
+</resources>
