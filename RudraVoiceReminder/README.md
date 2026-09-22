@@ -2,9 +2,37 @@
 
 Premium Android voice-reminder assistant.
 
-## Current v1
-- Kotlin + Jetpack Compose
-- Premium dark glass-inspired UI
+## Codemagic
+
+`codemagic.yaml` is in the repository root.
+
+Repository root:
+
+```text
+app/
+gradle/
+build.gradle.kts
+settings.gradle.kts
+gradle.properties
+gradlew
+gradlew.bat
+codemagic.yaml
+README.md
+```
+
+1. Unzip this project.
+2. Upload the CONTENTS to the root of a GitHub repository.
+3. In Codemagic select Android.
+4. Select the branch containing `codemagic.yaml`.
+5. Click **Check for configuration file**.
+6. Run **android-debug** first.
+7. Download `app-debug.apk` from Artifacts.
+
+Do not upload the ZIP itself into GitHub.
+
+## Features
+
+- Premium dark glass-inspired Compose UI
 - Room local database
 - Manual reminder scheduling
 - Android exact alarm scheduling
@@ -14,26 +42,4 @@ Premium Android voice-reminder assistant.
 - Notification and microphone permissions
 - Codemagic APK workflows
 
-## Build
-
-```bash
-./gradlew assembleDebug
-```
-
-APK:
-`app/build/outputs/apk/debug/app-debug.apk`
-
-## Codemagic
-
-1. Push this repository to GitHub.
-2. Open https://codemagic.io/
-3. Sign in with GitHub.
-4. Add the repository.
-5. Codemagic detects `codemagic.yaml`.
-6. Run `android-debug`.
-7. Download the APK from Artifacts.
-
-For Google Play/release signing, configure an Android keystore in Codemagic rather than committing it to Git.
-
-## Next planned upgrade
-The v1 architecture intentionally keeps reminder parsing separate so a Gemini/OpenAI parser can be added later for natural-language Marathi/Hindi/English commands.
+The release workflow needs Android signing configured in Codemagic for a distributable signed release.

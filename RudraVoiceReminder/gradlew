@@ -1,5 +1,18 @@
 #!/bin/sh
 set -e
-if command -v gradle >/dev/null 2>&1; then exec gradle "$@"; fi
-echo "Gradle command not found. Use Codemagic's Android environment or generate the Gradle wrapper with ./gradle wrapper."
-exit 1
+BASE_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+GRADLE_VERSION="8.10.2"
+GRADLE_HOME="${HOME}/.gradle/rudra-wrapper/gradle-${GRADLE_VERSION}"
+DIST="${HOME}/.gradle/rudra-wrapper/gradle-${GRADLE_VERSION}-bin.zip"
+if [ ! -x "$GRADLE_HOME/bin/gradle" ]; then
+  mkdir -p "${HOME}/.gradle/rudra-wrapper"
+  if [ ! -f "$DIST" ]; then
+    curl -fL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" -o "$DIST"
+  fi
+  rm -rf "$GRADLE_HOME.tmp"
+  mkdir -p "$GRADLE_HOME.tmp"
+  unzip -q "$DIST" -d "$GRADLE_HOME.tmp"
+  mv "$GRADLE_HOME.tmp/gradle-${GRADLE_VERSION}" "$GRADLE_HOME"
+  rm -rf "$GRADLE_HOME.tmp"
+fi
+exec "$GRADLE_HOME/bin/gradle" -p "$BASE_DIR" "$@"

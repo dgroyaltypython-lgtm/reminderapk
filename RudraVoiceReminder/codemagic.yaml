@@ -2,21 +2,33 @@ workflows:
   android-debug:
     name: Rudra Voice Reminder - Debug APK
     max_build_duration: 30
+    instance_type: linux_x2
     environment:
       java: 17
     scripts:
+      - name: Set Android SDK location
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
       - name: Build debug APK
-        script: ./gradlew assembleDebug
+        script: |
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
     artifacts:
       - app/build/outputs/apk/debug/app-debug.apk
 
   android-release:
     name: Rudra Voice Reminder - Release APK
     max_build_duration: 30
+    instance_type: linux_x2
     environment:
       java: 17
     scripts:
+      - name: Set Android SDK location
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
       - name: Build release APK
-        script: ./gradlew assembleRelease
+        script: |
+          chmod +x ./gradlew
+          ./gradlew assembleRelease
     artifacts:
       - app/build/outputs/apk/release/app-release.apk
